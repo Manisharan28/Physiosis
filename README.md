@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Physiosis — Real-Time Physiotherapy Gait Analysis
 
 A Python-based gait analysis tool for physiotherapy that uses **MediaPipe Pose** and **OpenCV** to detect human movement from a webcam or recorded video, analyze gait parameters in real time, and flag abnormalities on-screen.
@@ -60,3 +61,6 @@ utils.py          → Math helpers, constants, thresholds
 | Symmetry | Left vs. Right angle difference per joint |
 | Cadence | Steps per minute |
 | Gait Quality | Composite score from angle normality + symmetry |
+=======
+# Physiosis
+>>>>>>> a2530468e0d556999fdf88deb1c3419513f6195c
