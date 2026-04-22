@@ -18,6 +18,17 @@ pose = mp_pose.Pose(
     min_tracking_confidence=0.5,
 )
 
+# ── Video Mapping ─────────────────────────────────────────────────────────────
+EXERCISE_VIDEOS = {
+    "Forward Head Posture": "https://www.youtube.com/watch?v=LT_dFRnmdGs",
+    "Neck Tilt":            "https://www.youtube.com/watch?v=wQylqaCl8Zo",
+    "Shoulder Imbalance":   "https://www.youtube.com/watch?v=DFRRJYPQCCw",
+    "Pelvic Tilt":          "https://www.youtube.com/watch?v=R-aA2FuRBFk",
+    "Elbow Hyperextension": "https://www.youtube.com/watch?v=zmzHEBSvloI",
+    "Knee Valgus":          "https://www.youtube.com/watch?v=o1I1eiMnd1I",
+    "Knee Hyperextension":  "https://www.youtube.com/watch?v=o1I1eiMnd1I",
+}
+
 # ── Utility helpers ───────────────────────────────────────────────────────────
 
 def clamp(val: float, lo: float, hi: float) -> int:
@@ -269,6 +280,9 @@ def analyze_biomechanics(landmarks, frame):
         diagnostics.append({"issue": "Knee Alignment", "status": "WAITING",
                              "tip": "Ensure hips, knees, and ankles are clearly visible.", "severity": 0})
 
+    for d in diagnostics:
+        d["video"] = EXERCISE_VIDEOS.get(d["issue"])
+        
     return diagnostics
 
 
@@ -317,7 +331,10 @@ async def websocket_endpoint(websocket: WebSocket):
 
 @app.get("/")
 def get_dashboard():
-    with open("index.html", "r") as f:
+    import os
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    template_path = os.path.join(base_dir, "templates", "index.html")
+    with open(template_path, "r") as f:
         return HTMLResponse(f.read())
 
 
