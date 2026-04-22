@@ -334,7 +334,7 @@ def get_dashboard():
     import os
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     template_path = os.path.join(base_dir, "templates", "index.html")
-    with open(template_path, "r") as f:
+    with open(template_path, "r", encoding="utf-8") as f:
         return HTMLResponse(f.read())
 
 
